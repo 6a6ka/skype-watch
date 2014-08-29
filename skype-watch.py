@@ -23,5 +23,5 @@ c.execute("select id from Messages where id = (select max(id) from Messages);")
 while True:
     sleep(interval)
     for id, body in c.execute("select id, body_xml from Messages where id > ?;", (last_msg_id,)):
-        last_msg_id = id
+        last_msg_id = max(id, last_msg_id)
         print body
